@@ -1,12 +1,12 @@
 {
-  "name": "react-template",
+  "name": "lexi",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/WantenMN/react-template.git"
+    "url": "https://github.com/WantenMN/Lexi.git"
   },
   "author": {
     "name": "Wanten",
