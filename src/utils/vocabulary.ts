@@ -2,17 +2,13 @@ import wordList from "@/assets/words.txt";
 import { removeDuplicates } from "./utils";
 import { getBase, setBase } from "./idb";
 
-export const checkCommonWords = async (
+let commonWordsList: string[] | undefined = undefined;
+
+const checkCommonWords = async (
   words: string[]
 ): Promise<{ commonWords: string[]; uncommonWords: string[] }> => {
-  let commonWordsList: string[] | undefined = await getBase("common-words");
-
   if (!commonWordsList) {
-    const response = await fetch(wordList);
-    const wordListText = await response.text();
-    const wordListArray = wordListText.split("\n");
-    await setBase("common-words", wordListArray);
-    commonWordsList = wordListArray;
+    commonWordsList = await getCommonWordsList();
   }
 
   const commonWords: string[] = [];
@@ -31,6 +27,22 @@ export const checkCommonWords = async (
     uncommonWords,
   };
 };
+
+async function getCommonWordsList(): Promise<string[]> {
+  let wordListArray: string[];
+
+  const storedCommonWords = await getBase("common-words");
+  if (storedCommonWords) {
+    wordListArray = storedCommonWords;
+  } else {
+    const response = await fetch(wordList);
+    const wordListText = await response.text();
+    wordListArray = wordListText.split("\n");
+    await setBase("common-words", wordListArray);
+  }
+
+  return wordListArray;
+}
 
 export const extractWords = (article: string): string[] => {
   const cleanedArticle = article
