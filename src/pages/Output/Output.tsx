@@ -11,7 +11,10 @@ const Output = () => {
 
   const init = async () => {
     const article = await getBase("article");
-    if (!article) return;
+    if (!article) {
+      setIsLoading(false);
+      return;
+    }
     const { filteredWords, uncommonWords } = await processArticle(article);
     setWords(filteredWords);
     setUncommonWords(uncommonWords);
