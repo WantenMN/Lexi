@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import InputIcon from "../icons/InputIcon";
 import OutputIcon from "../icons/OutputIcon";
+import MyWordsIcon from "../icons/MyWordsIcon";
 
 const Nav = () => {
   const pathname = useLocation().pathname;
@@ -15,6 +16,11 @@ const Nav = () => {
       name: "output",
       path: "/output",
       icon: OutputIcon,
+    },
+    {
+      name: "my-words",
+      path: "/my-words",
+      icon: MyWordsIcon,
     },
   ];
 

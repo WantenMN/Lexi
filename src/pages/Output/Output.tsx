@@ -1,5 +1,5 @@
 import LoadingIcon from "@/components/icons/LoadingIcon";
-import { getBase } from "@/utils/idb";
+import { addNewWords, getBase } from "@/utils/idb";
 import { processArticle } from "@/utils/vocabulary";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
@@ -19,6 +19,8 @@ const Output = () => {
     setWords(filteredWords);
     setUncommonWords(uncommonWords);
     setIsLoading(false);
+
+    await addNewWords(filteredWords);
   };
 
   useEffect(() => {
