@@ -3,6 +3,6 @@ interface DisplayAreaProps {
 }
 
 const DisplayArea: React.FC<DisplayAreaProps> = ({ children }) => {
-  return <div className="flex-1">{children}</div>;
+  return <div className="h-full flex-1 overflow-y-scroll">{children}</div>;
 };
 export default DisplayArea;

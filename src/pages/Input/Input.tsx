@@ -44,7 +44,7 @@ const Input = () => {
       ref={textareaRef}
       onChange={handleTextareaChange}
       onPaste={saveArticle}
-      className="h-full w-full resize-none bg-inherit p-4 text-lg leading-normal focus:outline-none "
+      className="h-[99%] w-full resize-none bg-inherit p-4 text-lg leading-normal focus:outline-none"
       placeholder="Please paste article here"
     ></textarea>
   );
