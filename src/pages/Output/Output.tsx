@@ -1,3 +1,4 @@
+import LoadingIcon from "@/components/icons/LoadingIcon";
 import { getBase } from "@/utils/idb";
 import { processArticle } from "@/utils/vocabulary";
 import classNames from "classnames";
@@ -6,14 +7,15 @@ import { useEffect, useState } from "react";
 const Output = () => {
   const [words, setWords] = useState<string[]>([]);
   const [uncommonWords, setUncommonWords] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const init = async () => {
     const article = await getBase("article");
     if (!article) return;
-
     const { filteredWords, uncommonWords } = await processArticle(article);
     setWords(filteredWords);
     setUncommonWords(uncommonWords);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -28,18 +30,28 @@ const Output = () => {
 
   return (
     <div className="h-full p-4">
-      <ul className="h-full overflow-y-auto">
-        {words.map((word, index) => {
-          const isUncommon = uncommonWords.includes(word);
-          const listItemClassName = classNames({ "text-red-700": isUncommon });
+      {isLoading ? (
+        <div className="flex h-full items-center justify-center">
+          <span className="animate-spin">
+            <LoadingIcon className="text-red-400" />
+          </span>
+        </div>
+      ) : (
+        <ul className="h-full overflow-y-auto">
+          {words.map((word, index) => {
+            const isUncommon = uncommonWords.includes(word);
+            const listItemClassName = classNames({
+              "text-red-700": isUncommon,
+            });
 
-          return (
-            <li className={listItemClassName} key={index}>
-              {word}
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li className={listItemClassName} key={index}>
+                {word}
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };
