@@ -15,7 +15,7 @@ const checkCommonWords = async (
   const uncommonWords: string[] = [];
 
   words.forEach((word) => {
-    if (commonWordsList!.includes(word.toLowerCase())) {
+    if (!commonWordsList || commonWordsList.includes(word.toLowerCase())) {
       commonWords.push(word);
     } else {
       uncommonWords.push(word);
