@@ -1,5 +1,5 @@
 import useWindowInnerSize from "@/hooks/useWindowInnerSize";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -10,16 +10,16 @@ const Container: React.FC<ContainerProps> = ({ children }) => {
   const [containerHeight, setContainerHeight] = useState("");
   const [innerWidth, innerHeight] = useWindowInnerSize();
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     setContainerHeight(
       innerWidth < 840 || innerHeight < 840 ? "h-screen" : "h-container"
     );
     setContainerWidth(innerWidth < 840 ? "w-screen" : "w-container");
-  };
+  }, [innerWidth, innerHeight]);
 
   useEffect(() => {
     handleResize();
-  }, [innerWidth, innerHeight]);
+  }, [handleResize]);
 
   return (
     <main
