@@ -32,7 +32,7 @@ async function getCommonWordsList(): Promise<string[]> {
   let wordListArray: string[];
 
   const storedCommonWords = await getBase("common-words");
-  if (storedCommonWords) {
+  if (storedCommonWords && Array.isArray(storedCommonWords)) {
     wordListArray = storedCommonWords;
   } else {
     const response = await fetch(wordList);

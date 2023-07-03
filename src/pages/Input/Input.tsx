@@ -20,7 +20,7 @@ const Input = () => {
   const readArticle = async () => {
     const article = await getBase("article");
 
-    if (!textareaRef.current || !article) return;
+    if (!textareaRef.current || !article || typeof article !== "string") return;
 
     textareaRef.current.value = article;
   };

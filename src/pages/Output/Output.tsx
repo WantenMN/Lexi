@@ -11,7 +11,7 @@ const Output = () => {
 
   const init = async () => {
     const article = await getBase("article");
-    if (!article) {
+    if (!article || typeof article !== "string") {
       setIsLoading(false);
       return;
     }

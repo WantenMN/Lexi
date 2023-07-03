@@ -1,8 +1,8 @@
-import { DBSchema, openDB } from "idb";
+import { DBSchema, IDBPDatabase, openDB } from "idb";
 
-let db: any = null;
+let db: Promise<IDBPDatabase<LexiDB>> | null = null;
 
-type Level = 0 | 1 | 2 | 3 | 4 | 5; // unfamiliar - familiar
+export type Level = 0 | 1 | 2 | 3 | 4 | 5; // unfamiliar - familiar
 type AllowedIndexes = "created_at" | "updated_at" | "level";
 
 interface LexiDB extends DBSchema {
@@ -26,7 +26,7 @@ interface LexiDB extends DBSchema {
   };
   base: {
     key: string;
-    value: any;
+    value: string | string[];
   };
 }
 
@@ -53,7 +53,7 @@ export const getSettings = async (key: string) => {
   return (await db).get("settings", key);
 };
 
-export const setBase = async (key: string, value: any) => {
+export const setBase = async (key: string, value: string | string[]) => {
   if (!db) return;
   return (await db).put("base", value, key);
 };
@@ -61,6 +61,18 @@ export const setBase = async (key: string, value: any) => {
 export const getBase = async (key: string) => {
   if (!db) return;
   return (await db).get("base", key);
+};
+
+export const getAllWords = async () => {
+  try {
+    if (!db) return [];
+
+    const words = (await db).getAllKeys("words");
+    return words;
+  } catch (error) {
+    console.error("Error retrieving words:", error);
+    return [];
+  }
 };
 
 export const addNewWords = async (words: string[]) => {
@@ -84,23 +96,15 @@ export const addNewWords = async (words: string[]) => {
   }
 };
 
-export const getAllWords = async () => {
+export const getAllWordsDetails = async (
+  index: AllowedIndexes = "updated_at"
+) => {
   try {
     if (!db) return;
-    const words = (await db).getAllKeys("words");
-    return words;
-  } catch (error) {
-    console.error("Error retrieving words:", error);
-    return [];
-  }
-};
-
-export const getAllWordsDetails = async (index: AllowedIndexes) => {
-  try {
-    if (!db) return;
-    const dbWords = (await db).transaction("words", "readonly");
-    const store = dbWords.objectStore("words");
-    const words = await store.getAll(index);
+    const transaction = (await db).transaction("words", "readonly");
+    const store = transaction.objectStore("words");
+    const indexObject = store.index(`by-${index}`);
+    const words = await indexObject.getAll();
     return words;
   } catch (error) {
     console.error("Error retrieving words:", error);
@@ -116,6 +120,9 @@ export const getWord = async (word: string) => {
 export const updateWord = async (word: string, level: Level) => {
   if (!db) return;
   const originalWord = await getWord(word);
+
+  if (!originalWord) return;
+
   const now = Date.now();
   (await db).put(
     "words",
