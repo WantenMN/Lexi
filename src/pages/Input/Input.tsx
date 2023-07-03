@@ -20,11 +20,9 @@ const Input = () => {
   const readArticle = async () => {
     const article = await getBase("article");
 
-    if (textareaRef.current && article) {
-      textareaRef.current.value = article;
-    }
+    if (!textareaRef.current || !article) return;
 
-    textareaGetFocus();
+    textareaRef.current.value = article;
   };
 
   let timer: NodeJS.Timeout;
@@ -35,8 +33,13 @@ const Input = () => {
     }, 250);
   };
 
+  const init = async () => {
+    await readArticle();
+    textareaGetFocus();
+  };
+
   useEffect(() => {
-    readArticle();
+    init();
   }, []);
 
   return (
