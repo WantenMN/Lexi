@@ -33,12 +33,12 @@ const Input = () => {
     }, 250);
   };
 
-  const init = async () => {
-    await readArticle();
-    textareaGetFocus();
-  };
-
   useEffect(() => {
+    const init = async () => {
+      await readArticle();
+      textareaGetFocus();
+    };
+
     init();
   }, []);
 
