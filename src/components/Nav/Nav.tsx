@@ -49,6 +49,7 @@ const Nav = () => {
       </Link>
     </li>
   ));
+
   return (
     <nav className="border-b">
       <ul className="flex">{navList}</ul>
