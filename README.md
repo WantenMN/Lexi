@@ -2,6 +2,10 @@
 
 A vocabulary expansion tool inspired by [kyle1an/sub-vocab](https://github.com/kyle1an/sub-vocab) project.
 
+## Project Status
+
+**Work in Progress**
+
 ## Overview
 
 Lexi is a web application designed to help users enhance their vocabulary and track their progress in learning new words. Users can paste English articles into the website, and Lexi will extract the words, categorizing them as "new" or "acquainted." Users can mark words as "acquainted" to monitor their learning journey.
