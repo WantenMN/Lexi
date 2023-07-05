@@ -1,10 +1,26 @@
+# Notice: Discontinuation of Lexi Project
+
+Dear Future Lexi Users,
+
+I hope this message finds you well. I am writing to inform you that I have decided to discontinue the development of the Lexi project. As the sole developer behind this endeavor, I have come to realize that the fundamental idea and objectives of the application are not aligned with effective English language learning practices.
+
+The initial concept behind Lexi was to create a tool to assist in expanding vocabulary by extracting words from articles. However, upon careful consideration, I have come to understand that isolating words from their contextual environment may not provide an optimal learning experience. Focusing solely on a single meaning of a word, without considering its usage within an article, may not sufficiently support language comprehension and acquisition.
+
+I deeply apologize for any inconvenience this may cause you as a potential user. I value your feedback and strive to create applications that truly enhance your language learning journey. It is with this in mind that I have made the difficult decision to discontinue Lexi, ensuring that you receive the most effective and beneficial language learning tools.
+
+Thank you for your understanding and interest in Lexi. Should you have any questions or concerns, please feel free to reach out to me.
+
+Sincerely,
+
+Wanten
+
 # Lexi
 
 A vocabulary expansion tool inspired by [kyle1an/sub-vocab](https://github.com/kyle1an/sub-vocab) project.
 
 ## Project Status
 
-**Work in Progress**
+**Discontinued**
 
 ## Overview
 
